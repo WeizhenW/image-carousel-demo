@@ -1,24 +1,9 @@
 import React, { Component } from 'react';
 
 //semantic ui
-import { Image, Icon, Segment } from 'semantic-ui-react';
-
-const styles = {
-  header: {
-    fontSize: "32px",
-    backgroundColor: "black",
-    color: "white",
-    padding: "20px"
-  },
-  icon: {
-    margin: "50% auto",
-    width: "50%",
-    fontSize: "32px",
-  }
-}
+import { Image, Segment } from 'semantic-ui-react';
 
 class SingleImage extends Component {
-
   render() {
     return (
             <Segment>
@@ -26,7 +11,6 @@ class SingleImage extends Component {
             </Segment>
     );
   }
-
 }
 
 export default SingleImage;
