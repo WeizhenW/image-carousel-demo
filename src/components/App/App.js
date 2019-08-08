@@ -71,47 +71,69 @@ class App extends Component {
     }
   }
 
-  //function to close the modal display
+  //function to toggle the modal display
   handleToggleModal = () => {
     this.setState({
       showModal: !this.state.showModal,
     })
   }
 
+  //function to toggle the auto play
+  //set interval to move to the next image every second
+  handleToggleAutoplay = () => {
+    if(!this.state.autoPlay) {
+      this.interval = setInterval(() => {
+        if(this.state.pointer !== 2) {
+          this.setState({
+            pointer: this.state.pointer + 1
+          })
+        } else {
+          this.setState({
+            pointer: 0
+          })
+        }
+      }, 1000) 
+    } else {
+      clearInterval(this.interval);
+    }
+    this.setState({
+      autoPlay: !this.state.autoPlay,
+    });
 
+  }
 
   render() {
     return (
       <div className="App">
         <h1 style={styles.header}>Carousel Demo</h1>
-        <pre>
+        {/* <pre>
           {JSON.stringify(this.state, null, 2)}
-        </pre>
+        </pre> */}
         <Grid>
           {/* section to display full size image */}
           <Grid.Row>
-            <Grid.Column mobile={16} tablet={4} computer={3}>
+            <Grid.Column mobile={16} computer={4}>
               <Icon style={styles.icon} name="angle left" disabled={this.state.pointer === 0} onClick={this.handleBackward} />
             </Grid.Column>
-            <Grid.Column mobile={16} tablet={8} computer={10}>
+            <Grid.Column mobile={16} computer={8}>
               <SingleImage image={this.state.imageArray[this.state.pointer]} />
             </Grid.Column>
-            <Grid.Column mobile={16} tablet={4} computer={3}>
+            <Grid.Column mobile={16} computer={4}>
               <Icon style={styles.icon} name="angle right" disabled={this.state.pointer === 2} onClick={this.handleForward} />
             </Grid.Column>
           </Grid.Row>
 
           {/* section for auto play and zoom in */}
           <Grid.Row>
-            <Grid.Column mobile={16} tablet={4} computer={3}>
+            <Grid.Column mobile={16} computer={3}>
             </Grid.Column>
-            <Grid.Column mobile={16} tablet={8} computer={10}>
+            <Grid.Column mobile={16} computer={10}>
               <Grid columns={3}>
                 <Grid.Column>
                   {this.state.autoPlay ?
-                    <Icon style={{ fontSize: "24px" }} name="stop" />
+                    <Icon style={{ fontSize: "24px" }} name="stop" onClick={this.handleToggleAutoplay} />
                     :
-                    <Icon style={{ fontSize: "24px" }} name="play" />
+                    <Icon style={{ fontSize: "24px" }} name="play" onClick={this.handleToggleAutoplay}/>
                   }
                 </Grid.Column>
                 <Grid.Column>
@@ -122,18 +144,18 @@ class App extends Component {
                 </Grid.Column>
               </Grid>
             </Grid.Column>
-            <Grid.Column mobile={16} tablet={4} computer={3}>
+            <Grid.Column mobile={16} computer={3}>
             </Grid.Column>
           </Grid.Row>
 
           {/* section for image thumbnail */}
           <Grid.Row>
-            <Grid.Column mobile={16} tablet={4} computer={3}>
+            <Grid.Column mobile={16} computer={3}>
             </Grid.Column>
-            <Grid.Column mobile={16} tablet={8} computer={10}>
+            <Grid.Column mobile={16} computer={10}>
               <ImageThumbnail imageArray={this.state.imageArray} pointer={this.state.pointer} />
             </Grid.Column>
-            <Grid.Column mobile={16} tablet={4} computer={3}>
+            <Grid.Column mobile={16} computer={3}>
             </Grid.Column>
           </Grid.Row>
         </Grid>
