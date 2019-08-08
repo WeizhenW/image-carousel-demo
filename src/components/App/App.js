@@ -5,7 +5,7 @@ import SingleImage from '../SingleImage/SingleImage';
 import ImageThumbnail from '../ImageThumbnail/ImageThumbnail';
 
 //semantic ui
-import { Grid, Image, Icon, Segment } from 'semantic-ui-react';
+import { Grid, Icon, Image, Modal } from 'semantic-ui-react';
 
 const styles = {
   header: {
@@ -47,6 +47,7 @@ class App extends Component {
     pointer: 0, //pointer to record the current displayed image
     numberOfImages: 3,
     autoPlay: false,
+    showModal: false,
   }
 
   //function to handle moving to the next image
@@ -69,6 +70,15 @@ class App extends Component {
       return;
     }
   }
+
+  //function to close the modal display
+  handleToggleModal = () => {
+    this.setState({
+      showModal: !this.state.showModal,
+    })
+  }
+
+
 
   render() {
     return (
@@ -98,14 +108,14 @@ class App extends Component {
             <Grid.Column mobile={16} tablet={8} computer={10}>
               <Grid columns={3}>
                 <Grid.Column>
-                  {this.state.autoPlay?
-                  <Icon style={{fontSize: "24px"}} name="stop" />
+                  {this.state.autoPlay ?
+                    <Icon style={{ fontSize: "24px" }} name="stop" />
                     :
-                  <Icon style={{fontSize: "24px"}} name="play" />
+                    <Icon style={{ fontSize: "24px" }} name="play" />
                   }
                 </Grid.Column>
                 <Grid.Column>
-                  <Icon style={{fontSize: "24px"}} name="zoom in" />
+                  <Icon style={{ fontSize: "24px" }} name="zoom in" onClick={this.handleToggleModal}/>
                 </Grid.Column>
                 <Grid.Column>
                   <p style={styles.pageNum}>{this.state.pointer + 1}/{this.state.numberOfImages}</p>
@@ -127,6 +137,20 @@ class App extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
+
+        {/* below is the modal for showing full screen image */}
+
+        <Modal
+          open={this.state.showModal}
+          onClose={this.handleToggleModal}
+          basic
+          size='large'
+        >
+          <Modal.Content image>
+            <Image src={this.state.imageArray[this.state.pointer].url} />
+          </Modal.Content>
+        </Modal>
+
       </div>
     );
   }
