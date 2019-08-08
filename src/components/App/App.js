@@ -17,7 +17,10 @@ const styles = {
   icon: {
     margin: "50% auto",
     width: "50%",
-    fontSize: "32px",
+    fontSize: "36px",
+  },
+  pageNum: {
+    fontSize: "24px",
   }
 }
 
@@ -43,6 +46,7 @@ class App extends Component {
     ],
     pointer: 0, //pointer to record the current displayed image
     numberOfImages: 3,
+    autoPlay: false,
   }
 
   //function to handle moving to the next image
@@ -74,6 +78,7 @@ class App extends Component {
           {JSON.stringify(this.state, null, 2)}
         </pre>
         <Grid>
+          {/* section to display full size image */}
           <Grid.Row>
             <Grid.Column mobile={16} tablet={4} computer={3}>
               <Icon style={styles.icon} name="angle left" disabled={this.state.pointer === 0} onClick={this.handleBackward} />
@@ -85,6 +90,33 @@ class App extends Component {
               <Icon style={styles.icon} name="angle right" disabled={this.state.pointer === 2} onClick={this.handleForward} />
             </Grid.Column>
           </Grid.Row>
+
+          {/* section for auto play and zoom in */}
+          <Grid.Row>
+            <Grid.Column mobile={16} tablet={4} computer={3}>
+            </Grid.Column>
+            <Grid.Column mobile={16} tablet={8} computer={10}>
+              <Grid columns={3}>
+                <Grid.Column>
+                  {this.state.autoPlay?
+                  <Icon style={{fontSize: "24px"}} name="stop" />
+                    :
+                  <Icon style={{fontSize: "24px"}} name="play" />
+                  }
+                </Grid.Column>
+                <Grid.Column>
+                  <Icon style={{fontSize: "24px"}} name="zoom in" />
+                </Grid.Column>
+                <Grid.Column>
+                  <p style={styles.pageNum}>{this.state.pointer + 1}/{this.state.numberOfImages}</p>
+                </Grid.Column>
+              </Grid>
+            </Grid.Column>
+            <Grid.Column mobile={16} tablet={4} computer={3}>
+            </Grid.Column>
+          </Grid.Row>
+
+          {/* section for image thumbnail */}
           <Grid.Row>
             <Grid.Column mobile={16} tablet={4} computer={3}>
             </Grid.Column>
