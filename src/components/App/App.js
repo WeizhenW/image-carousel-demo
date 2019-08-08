@@ -74,13 +74,13 @@ class App extends Component {
         </pre>
         <Grid>
           <Grid.Column mobile={16} tablet={4} computer={3}>
-          <Icon style={styles.icon} name="angle left" onClick={this.handleBackward} />
+          <Icon style={styles.icon} name="angle left" disabled={this.state.pointer===0} onClick={this.handleBackward} />
           </Grid.Column>
           <Grid.Column mobile={16} tablet={8} computer={10}>
             <SingleImage image={this.state.imageArray[this.state.pointer]} />
           </Grid.Column>
           <Grid.Column mobile={16} tablet={4} computer={3}>
-            <Icon style={styles.icon} name="angle right" onClick={this.handleForward} />
+            <Icon style={styles.icon} name="angle right" disabled={this.state.pointer===2} onClick={this.handleForward} />
           </Grid.Column>
 
         </Grid>
